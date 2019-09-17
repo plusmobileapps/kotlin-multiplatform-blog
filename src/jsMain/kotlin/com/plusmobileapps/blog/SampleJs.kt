@@ -1,4 +1,4 @@
-package sample
+package com.plusmobileapps.blog
 
 import kotlin.browser.*
 

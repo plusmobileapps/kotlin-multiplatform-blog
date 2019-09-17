@@ -1,6 +1,6 @@
-package sample.repository
+package com.plusmobileapps.blog.repository
 
-import sample.model.Article
+import com.plusmobileapps.blog.model.Article
 
 interface ArticleRepository {
     suspend fun add(article: Article)

@@ -1,4 +1,4 @@
-package sample
+package com.plusmobileapps.blog
 
 import io.ktor.application.*
 import io.ktor.html.*

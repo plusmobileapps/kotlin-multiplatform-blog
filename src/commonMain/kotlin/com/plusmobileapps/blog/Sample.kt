@@ -1,4 +1,4 @@
-package sample
+package com.plusmobileapps.blog
 
 expect class Sample() {
     fun checkMe(): Int
