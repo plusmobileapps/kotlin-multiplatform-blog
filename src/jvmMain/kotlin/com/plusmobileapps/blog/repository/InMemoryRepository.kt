@@ -1,33 +1,37 @@
 package com.plusmobileapps.blog.repository
 
 import com.plusmobileapps.blog.model.Article
+import java.lang.IllegalArgumentException
+import java.util.concurrent.atomic.AtomicInteger
 
 class InMemoryRepository : ArticleRepository {
 
+    private val idCounter = AtomicInteger()
     private val articles = hashMapOf<Int, Article>()
 
-    override suspend fun add(article: Article) {
-        articles[article.id!!] = article
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun add(article: Article): Article {
+        return article.id?.let { id ->
+            articles[id]
+        } ?: with(article) {
+            val id = idCounter.incrementAndGet()
+            article.id = id
+            articles[id] = article
+            article
+        }
     }
 
-    override suspend fun addArticles(articles: List<Article>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override suspend fun addArticles(articles: List<Article>) = articles.forEach { article -> add(article) }
 
-    override suspend fun getArticles(): List<Article> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override suspend fun getArticles(): List<Article> = articles.values.toList()
 
     override suspend fun getArticle(id: Int): Article {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return articles[id] ?: throw IllegalArgumentException("No article found for $id")
     }
 
     override suspend fun deleteArticle(id: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        articles.remove(id)
     }
 
-    override suspend fun deleteAllArticles() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override suspend fun deleteAllArticles() = articles.clear()
+
 }

@@ -1,4 +1,4 @@
-package com.plusmobileapps.blog
+package com.plusmobileapps.blog.webapp
 
 import io.ktor.application.call
 import io.ktor.response.respondText
