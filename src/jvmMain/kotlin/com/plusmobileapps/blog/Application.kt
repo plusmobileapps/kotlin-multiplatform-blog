@@ -3,12 +3,15 @@ package com.plusmobileapps.blog
 import com.plusmobileapps.blog.api.article
 import com.plusmobileapps.blog.api.articles
 import com.plusmobileapps.blog.model.Article
+import com.plusmobileapps.blog.model.User
 import com.plusmobileapps.blog.repository.InMemoryRepository
 import com.plusmobileapps.blog.webapp.about
 import com.plusmobileapps.blog.webapp.home
 import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.call
 import io.ktor.application.install
+import io.ktor.auth.Authentication
+import io.ktor.auth.basic
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
 import io.ktor.features.StatusPages
@@ -44,6 +47,19 @@ fun main() {
 
         install(FreeMarker) {
             templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
+        }
+
+        install(Authentication) {
+            basic(name = "auth") {
+                realm = "Ktor server"
+                validate { credentials ->
+                    if (credentials.password == "${credentials.name}123") {
+                        User(credentials.name)
+                    } else {
+                        null
+                    }
+                }
+            }
         }
 
         install(ContentNegotiation) {

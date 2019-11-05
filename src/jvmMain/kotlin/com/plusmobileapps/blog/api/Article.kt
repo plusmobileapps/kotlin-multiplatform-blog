@@ -3,13 +3,20 @@ package com.plusmobileapps.blog.api
 import com.plusmobileapps.blog.API_VERSION
 import com.plusmobileapps.blog.model.Article
 import com.plusmobileapps.blog.model.Request
+import com.plusmobileapps.blog.model.User
 import com.plusmobileapps.blog.repository.ArticleRepository
 import io.ktor.application.call
+import io.ktor.auth.authenticate
+import io.ktor.auth.authentication
+import io.ktor.freemarker.FreeMarkerContent
 import io.ktor.request.receive
+import io.ktor.request.receiveParameters
 import io.ktor.response.respond
+import io.ktor.response.respondRedirect
 import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.post
+import java.util.*
 
 const val ARTICLE_ENDPOINT = "$API_VERSION/article/"
 const val ARTICLES = "/articles"
@@ -32,8 +39,36 @@ fun Route.article(db: ArticleRepository) {
 }
 
 fun Route.articles(db: ArticleRepository) {
-    get(ARTICLES) {
-        val articles = db.getArticles()
-        call.respond(articles)
+    authenticate("auth") {
+        get(ARTICLES) {
+            val user = call.authentication.principal as User
+            val articles = db.getArticles()
+            call.respond(
+                FreeMarkerContent(
+                    template = "homepage.ftl",
+                    model = mapOf(
+                        "articles" to db.getArticles(),
+                        "displayName" to user.displayName
+                    )
+                )
+            )
+        }
+        post(ARTICLES) {
+            val params = call.receiveParameters()
+            val author = params["author"] ?: throw IllegalArgumentException("Missing parameter: author")
+            val title = params["title"] ?: throw IllegalArgumentException("Missing paramter: title")
+            val minRead = params["minRead"] ?: throw IllegalArgumentException("Missing Parameter: minRead")
+            val body = params["body"] ?: throw IllegalArgumentException("missing parameter: body")
+            db.add(
+                Article(
+                    author = author,
+                    dateCreated = Date(System.currentTimeMillis()).toString(),
+                    title = title,
+                    minRead = minRead,
+                    body = body
+                )
+            )
+            call.respondRedirect(ARTICLES)
+        }
     }
 }
