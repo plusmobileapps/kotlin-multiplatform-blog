@@ -34,5 +34,6 @@ fun Route.article(db: ArticleRepository) {
 fun Route.articles(db: ArticleRepository) {
     get(ARTICLES) {
         val articles = db.getArticles()
+        call.respond(articles)
     }
 }

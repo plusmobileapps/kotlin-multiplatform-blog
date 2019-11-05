@@ -1,6 +1,7 @@
 package com.plusmobileapps.blog
 
 import com.plusmobileapps.blog.api.article
+import com.plusmobileapps.blog.api.articles
 import com.plusmobileapps.blog.model.Article
 import com.plusmobileapps.blog.repository.InMemoryRepository
 import com.plusmobileapps.blog.webapp.about
@@ -58,6 +59,7 @@ fun main() {
             about()
 
             article(repository)
+            articles(repository)
 //            get("/") {
 //                call.respondHtml {
 //                    head {
