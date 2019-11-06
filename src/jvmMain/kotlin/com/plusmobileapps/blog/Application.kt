@@ -71,6 +71,9 @@ fun main() {
         routing {
             val repository = InMemoryRepository()
 
+            static("/static") {
+                resources("images")
+            }
             home(repository)
             about()
 

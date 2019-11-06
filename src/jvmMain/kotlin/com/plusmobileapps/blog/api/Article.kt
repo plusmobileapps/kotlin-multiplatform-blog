@@ -42,10 +42,9 @@ fun Route.articles(db: ArticleRepository) {
     authenticate("auth") {
         get(ARTICLES) {
             val user = call.authentication.principal as User
-            val articles = db.getArticles()
             call.respond(
                 FreeMarkerContent(
-                    template = "homepage.ftl",
+                    template = "articles.ftl",
                     model = mapOf(
                         "articles" to db.getArticles(),
                         "displayName" to user.displayName
@@ -55,19 +54,29 @@ fun Route.articles(db: ArticleRepository) {
         }
         post(ARTICLES) {
             val params = call.receiveParameters()
-            val author = params["author"] ?: throw IllegalArgumentException("Missing parameter: author")
-            val title = params["title"] ?: throw IllegalArgumentException("Missing paramter: title")
-            val minRead = params["minRead"] ?: throw IllegalArgumentException("Missing Parameter: minRead")
-            val body = params["body"] ?: throw IllegalArgumentException("missing parameter: body")
-            db.add(
-                Article(
-                    author = author,
-                    dateCreated = Date(System.currentTimeMillis()).toString(),
-                    title = title,
-                    minRead = minRead,
-                    body = body
-                )
-            )
+            val action = params["action"] ?: throw IllegalArgumentException("Missing Parameter: action")
+
+            when(action) {
+                "delete" -> {
+                    val id = params["id"] ?: throw IllegalArgumentException("Missing Parameter: id")
+                    db.deleteArticle(id.toInt())
+                }
+                "add" -> {
+                    val author = params["author"] ?: throw IllegalArgumentException("Missing parameter: author")
+                    val title = params["title"] ?: throw IllegalArgumentException("Missing paramter: title")
+                    val minRead = params["minRead"] ?: throw IllegalArgumentException("Missing Parameter: minRead")
+                    val body = params["body"] ?: throw IllegalArgumentException("missing parameter: body")
+                    db.add(
+                        Article(
+                            author = author,
+                            dateCreated = Date(System.currentTimeMillis()).toString(),
+                            title = title,
+                            minRead = minRead,
+                            body = body
+                        )
+                    )
+                }
+            }
             call.respondRedirect(ARTICLES)
         }
     }

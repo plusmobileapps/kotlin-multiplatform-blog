@@ -12,7 +12,6 @@ const val HOME = "/"
 
 fun Route.home(db: ArticleRepository) {
     get(HOME) {
-        call.respond(FreeMarkerContent("homepage.ftl", mapOf("articles" to db.getArticles())))
-//        call.respondText("Hello from home page")
+        call.respond(FreeMarkerContent("home.ftl", null))
     }
 }
