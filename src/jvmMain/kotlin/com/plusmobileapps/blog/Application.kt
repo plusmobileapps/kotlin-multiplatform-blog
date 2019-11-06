@@ -1,13 +1,13 @@
 package com.plusmobileapps.blog
 
 import com.plusmobileapps.blog.api.article
-import com.plusmobileapps.blog.api.articles
-import com.plusmobileapps.blog.model.Article
 import com.plusmobileapps.blog.model.User
 import com.plusmobileapps.blog.repository.InMemoryRepository
 import com.plusmobileapps.blog.webapp.about
+import com.plusmobileapps.blog.webapp.articles
 import com.plusmobileapps.blog.webapp.home
 import freemarker.cache.ClassTemplateLoader
+import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.auth.Authentication
@@ -20,11 +20,14 @@ import io.ktor.gson.gson
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.*
+import io.ktor.locations.Locations
+import io.ktor.locations.locations
+import io.ktor.response.respond
+import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import kotlinx.coroutines.launch
 
 actual class Sample {
     actual fun checkMe() = 42
@@ -61,6 +64,8 @@ fun main() {
                 }
             }
         }
+
+        install(Locations)
 
         install(ContentNegotiation) {
             gson {
@@ -100,3 +105,7 @@ fun main() {
 }
 
 const val API_VERSION = "/api/v1"
+
+suspend fun ApplicationCall.redirect(location: Any) {
+    respondRedirect(application.locations.href(location))
+}

@@ -19,7 +19,6 @@ import io.ktor.routing.post
 import java.util.*
 
 const val ARTICLE_ENDPOINT = "$API_VERSION/article/"
-const val ARTICLES = "/articles"
 
 fun Route.article(db: ArticleRepository) {
     post(ARTICLE_ENDPOINT) {
@@ -38,46 +37,3 @@ fun Route.article(db: ArticleRepository) {
     }
 }
 
-fun Route.articles(db: ArticleRepository) {
-    authenticate("auth") {
-        get(ARTICLES) {
-            val user = call.authentication.principal as User
-            call.respond(
-                FreeMarkerContent(
-                    template = "articles.ftl",
-                    model = mapOf(
-                        "articles" to db.getArticles(),
-                        "displayName" to user.displayName
-                    )
-                )
-            )
-        }
-        post(ARTICLES) {
-            val params = call.receiveParameters()
-            val action = params["action"] ?: throw IllegalArgumentException("Missing Parameter: action")
-
-            when(action) {
-                "delete" -> {
-                    val id = params["id"] ?: throw IllegalArgumentException("Missing Parameter: id")
-                    db.deleteArticle(id.toInt())
-                }
-                "add" -> {
-                    val author = params["author"] ?: throw IllegalArgumentException("Missing parameter: author")
-                    val title = params["title"] ?: throw IllegalArgumentException("Missing paramter: title")
-                    val minRead = params["minRead"] ?: throw IllegalArgumentException("Missing Parameter: minRead")
-                    val body = params["body"] ?: throw IllegalArgumentException("missing parameter: body")
-                    db.add(
-                        Article(
-                            author = author,
-                            dateCreated = Date(System.currentTimeMillis()).toString(),
-                            title = title,
-                            minRead = minRead,
-                            body = body
-                        )
-                    )
-                }
-            }
-            call.respondRedirect(ARTICLES)
-        }
-    }
-}
