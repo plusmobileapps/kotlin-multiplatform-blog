@@ -39,7 +39,7 @@ fun Route.articles(db: ArticleRepository) {
             val params = call.receiveParameters()
             val action = params["action"] ?: throw IllegalArgumentException("Missing Parameter: action")
 
-            when(action) {
+            when (action) {
                 "delete" -> {
                     val id = params["id"] ?: throw IllegalArgumentException("Missing Parameter: id")
                     db.deleteArticle(id.toInt())
@@ -50,13 +50,11 @@ fun Route.articles(db: ArticleRepository) {
                     val minRead = params["minRead"] ?: throw IllegalArgumentException("Missing Parameter: minRead")
                     val body = params["body"] ?: throw IllegalArgumentException("missing parameter: body")
                     db.add(
-                        Article(
-                            author = author,
-                            dateCreated = Date(System.currentTimeMillis()).toString(),
-                            title = title,
-                            minRead = minRead,
-                            body = body
-                        )
+                        authorValue = author,
+                        dateCreatedValue = Date(System.currentTimeMillis()).toString(),
+                        titleValue = title,
+                        minReadValue = minRead,
+                        bodyValue = body
                     )
                 }
             }

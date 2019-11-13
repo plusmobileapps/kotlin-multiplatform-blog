@@ -2,7 +2,8 @@ package com.plusmobileapps.blog
 
 import com.plusmobileapps.blog.api.article
 import com.plusmobileapps.blog.model.User
-import com.plusmobileapps.blog.repository.InMemoryRepository
+import com.plusmobileapps.blog.repository.ArticlesRepository
+import com.plusmobileapps.blog.repository.DatabaseFactory
 import com.plusmobileapps.blog.webapp.about
 import com.plusmobileapps.blog.webapp.articles
 import com.plusmobileapps.blog.webapp.home
@@ -22,7 +23,6 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.*
 import io.ktor.locations.Locations
 import io.ktor.locations.locations
-import io.ktor.response.respond
 import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
 import io.ktor.routing.*
@@ -67,6 +67,8 @@ fun main() {
 
         install(Locations)
 
+        DatabaseFactory.init()
+
         install(ContentNegotiation) {
             gson {
 
@@ -74,7 +76,7 @@ fun main() {
         }
 
         routing {
-            val repository = InMemoryRepository()
+            val repository = ArticlesRepository()
 
             static("/static") {
                 resources("images")
