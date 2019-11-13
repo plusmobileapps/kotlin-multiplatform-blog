@@ -19,5 +19,5 @@ object Articles : IntIdTable() {
     val dateCreated: Column<String> = varchar("dateCreated", 50)
     val title: Column<String> = varchar("title", 200)
     val minRead: Column<String> = varchar("minRead", 100)
-    val body: Column<String> = varchar("body", Int.MAX_VALUE)
+    val body: Column<String> = varchar("body", 50000)
 }
