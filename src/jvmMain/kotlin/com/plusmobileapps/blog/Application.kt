@@ -4,10 +4,9 @@ import com.plusmobileapps.blog.api.article
 import com.plusmobileapps.blog.model.User
 import com.plusmobileapps.blog.repository.ArticlesRepository
 import com.plusmobileapps.blog.repository.DatabaseFactory
-import com.plusmobileapps.blog.webapp.about
-import com.plusmobileapps.blog.webapp.articles
-import com.plusmobileapps.blog.webapp.home
+import com.plusmobileapps.blog.webapp.*
 import freemarker.cache.ClassTemplateLoader
+import hash
 import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.application.install
@@ -52,20 +51,9 @@ fun main() {
             templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
         }
 
-        install(Authentication) {
-            basic(name = "auth") {
-                realm = "Ktor server"
-                validate { credentials ->
-                    if (credentials.password == "${credentials.name}123") {
-                        User(credentials.name)
-                    } else {
-                        null
-                    }
-                }
-            }
-        }
-
         install(Locations)
+
+        val hashFunction: (String) -> String = { s: String -> hash(s) }
 
         DatabaseFactory.init()
 
@@ -86,6 +74,9 @@ fun main() {
 
             article(repository)
             articles(repository)
+            signIn(repository, hashFunction)
+            signUp(repository, hashFunction)
+            signOut()
 //            get("/") {
 //                call.respondHtml {
 //                    head {

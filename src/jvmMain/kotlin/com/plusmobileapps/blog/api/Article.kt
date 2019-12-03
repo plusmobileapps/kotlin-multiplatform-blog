@@ -15,11 +15,12 @@ fun Route.article(db: ArticleRepository) {
     post(ARTICLE_ENDPOINT) {
         val request = call.receive<Request>()
         val article = db.add(
-                authorValue = request.author,
-                dateCreatedValue = request.dateCreated,
-                titleValue = request.title,
-                minReadValue = request.minRead,
-                bodyValue = request.body
+            userId = "",
+            authorValue = request.author,
+            dateCreatedValue = request.dateCreated,
+            titleValue = request.title,
+            minReadValue = request.minRead,
+            bodyValue = request.body
         )
 
         call.respond(article)

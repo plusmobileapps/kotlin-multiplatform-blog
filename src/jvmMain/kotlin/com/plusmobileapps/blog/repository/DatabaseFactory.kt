@@ -1,6 +1,7 @@
 package com.plusmobileapps.blog.repository
 
 import com.plusmobileapps.blog.model.Articles
+import com.plusmobileapps.blog.model.Users
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,7 @@ object DatabaseFactory {
         Database.connect(hikari())
         transaction {
             SchemaUtils.create(Articles)
+            SchemaUtils.create(Users)
         }
     }
 
