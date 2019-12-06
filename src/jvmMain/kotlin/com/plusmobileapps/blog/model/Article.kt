@@ -17,7 +17,7 @@ data class Article(
 
 object Articles : IntIdTable() {
     val author: Column<String> = varchar("author", 200)
-    val userId: Column<String> = varchar("user_id", 20).index()
+    val user: Column<String> = varchar("user_id", 20).index()
     val dateCreated: Column<String> = varchar("dateCreated", 50)
     val title: Column<String> = varchar("title", 200)
     val minRead: Column<String> = varchar("minRead", 100)

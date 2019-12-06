@@ -20,6 +20,7 @@ class ArticlesRepository : ArticleRepository {
     ) {
         transaction {
             Articles.insert {
+                it[user] = userId
                 it[author] = authorValue
                 it[dateCreated] = dateCreatedValue
                 it[title] = titleValue
@@ -54,7 +55,7 @@ class ArticlesRepository : ArticleRepository {
     private fun toArticle(row: ResultRow): Article {
         return Article(
             id = row[Articles.id].value,
-            userId = row[Articles.userId],
+            userId = row[Articles.user],
             author = row[Articles.author],
             dateCreated = row[Articles.dateCreated],
             title = row[Articles.title],
