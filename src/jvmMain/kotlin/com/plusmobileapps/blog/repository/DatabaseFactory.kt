@@ -25,7 +25,6 @@ object DatabaseFactory {
         val config = HikariConfig().apply {
             driverClassName = "org.postgresql.Driver"
             jdbcUrl = System.getenv("JDBC_DATABASE_URL")
-            password = System.getenv("DB_PASSWORD")
             maximumPoolSize = 3
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"
