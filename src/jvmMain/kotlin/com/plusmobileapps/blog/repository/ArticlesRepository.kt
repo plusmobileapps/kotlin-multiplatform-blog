@@ -85,6 +85,12 @@ class ArticlesRepository : ArticleRepository {
             .singleOrNull()
     }
 
+    override suspend fun userById(id: String): User? = dbQuery {
+        Users.select { Users.id.eq(id) }
+            .map(this::toUser)
+            .singleOrNull()
+    }
+
     override suspend fun createUser(user: User) = dbQuery {
         Users.insert {
             it[id] = user.userId

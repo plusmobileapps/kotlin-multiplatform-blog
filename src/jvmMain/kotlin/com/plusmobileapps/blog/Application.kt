@@ -1,6 +1,7 @@
 package com.plusmobileapps.blog
 
 import com.plusmobileapps.blog.api.article
+import com.plusmobileapps.blog.api.login
 import com.plusmobileapps.blog.model.BlogSession
 import com.plusmobileapps.blog.model.User
 import com.plusmobileapps.blog.repository.ArticlesRepository
@@ -12,6 +13,8 @@ import hashKey
 import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.application.install
+import io.ktor.auth.Authentication
+import io.ktor.auth.jwt.jwt
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
 import io.ktor.features.StatusPages
@@ -68,18 +71,31 @@ fun main() {
             }
         }
 
+        install(ContentNegotiation) {
+            gson {}
+        }
+
         val hashFunction: (String) -> String = { s: String -> hash(s) }
 
         DatabaseFactory.init()
+        val repository = ArticlesRepository()
+        val jwtService = JwtService()
 
-        install(ContentNegotiation) {
-            gson {
-
+        install(Authentication) {
+            jwt("jwt") {
+                verifier(jwtService.verifier)
+                realm = "blog app"
+                validate {
+                    val payload = it.payload
+                    val claim = payload.getClaim("id")
+                    val claimString = claim.asString()
+                    val user = repository.userById(claimString)
+                    user
+                }
             }
         }
 
         routing {
-            val repository = ArticlesRepository()
 
             static("/static") {
                 resources("images")
@@ -92,6 +108,7 @@ fun main() {
             signIn(repository, hashFunction)
             signUp(repository, hashFunction)
             signOut()
+            login(repository, jwtService)
 //            get("/") {
 //                call.respondHtml {
 //                    head {
