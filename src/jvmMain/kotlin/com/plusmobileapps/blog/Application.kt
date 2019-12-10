@@ -14,6 +14,7 @@ import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.auth.Authentication
+import io.ktor.auth.authentication
 import io.ktor.auth.jwt.jwt
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
@@ -130,3 +131,5 @@ fun ApplicationCall.securityCode(date: Long, user: User, hashFunction: (String) 
     hashFunction("$date:${user.userId}:${request.host()}:${refererHost()}")
 
 fun ApplicationCall.refererHost() = request.header(HttpHeaders.Referrer)?.let { URI.create(it).host }
+
+val ApplicationCall.apiUser: User? get() = authentication.principal()

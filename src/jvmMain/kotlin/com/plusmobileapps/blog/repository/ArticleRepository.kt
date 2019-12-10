@@ -11,7 +11,7 @@ interface ArticleRepository {
         titleValue: String,
         minReadValue: String,
         bodyValue: String
-    )
+    ): Article?
     suspend fun getArticles(): List<Article>
     suspend fun getArticle(id: Int): Article?
     suspend fun deleteArticle(id: Int)

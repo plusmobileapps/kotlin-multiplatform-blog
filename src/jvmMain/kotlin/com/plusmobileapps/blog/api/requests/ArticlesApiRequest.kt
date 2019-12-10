@@ -1,6 +1,6 @@
-package com.plusmobileapps.blog.model
+package com.plusmobileapps.blog.api.requests
 
-data class Request(
+data class ArticlesApiRequest(
     val author: String,
     val dateCreated: String,
     val title: String,

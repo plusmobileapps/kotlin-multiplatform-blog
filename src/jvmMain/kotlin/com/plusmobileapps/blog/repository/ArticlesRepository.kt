@@ -17,15 +17,21 @@ class ArticlesRepository : ArticleRepository {
         titleValue: String,
         minReadValue: String,
         bodyValue: String
-    ) {
+    ): Article? = dbQuery {
         transaction {
-            Articles.insert {
+            val insertStatement = Articles.insert {
                 it[user] = userId
                 it[author] = authorValue
                 it[dateCreated] = dateCreatedValue
                 it[title] = titleValue
                 it[minRead] = minReadValue
                 it[body] = bodyValue
+            }
+            val result = insertStatement.resultedValues?.get(0)
+            if (result != null) {
+                toArticle(result)
+            } else {
+                null
             }
         }
     }
