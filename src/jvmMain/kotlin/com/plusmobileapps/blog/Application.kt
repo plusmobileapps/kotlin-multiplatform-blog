@@ -1,6 +1,6 @@
 package com.plusmobileapps.blog
 
-import com.plusmobileapps.blog.api.article
+import com.plusmobileapps.blog.api.articlesApi
 import com.plusmobileapps.blog.api.login
 import com.plusmobileapps.blog.model.BlogSession
 import com.plusmobileapps.blog.model.User
@@ -72,7 +72,7 @@ fun main() {
         }
 
         install(ContentNegotiation) {
-            gson {}
+            gson()
         }
 
         val hashFunction: (String) -> String = { s: String -> hash(s) }
@@ -103,27 +103,14 @@ fun main() {
             home(repository)
             about(repository)
 
-            article(repository)
             articles(repository, hashFunction)
             signIn(repository, hashFunction)
             signUp(repository, hashFunction)
             signOut()
+
+            //API
             login(repository, jwtService)
-//            get("/") {
-//                call.respondHtml {
-//                    head {
-//                        title("Hello from Ktor!")
-//                    }
-//                    body {
-//                        +"${hello()} from Ktor. Check me value: ${Sample().checkMe()}"
-//                        div {
-//                            id = "js-response"
-//                            +"Loading..."
-//                        }
-//                        script(src = "/static/kotlin-multiplatform-blog.js") {}
-//                    }
-//                }
-//            }
+            articlesApi(repository)
 
         }
     }.start(wait = true)
