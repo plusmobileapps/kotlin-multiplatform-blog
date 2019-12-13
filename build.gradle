@@ -82,4 +82,4 @@ task run(type: JavaExec, dependsOn: [jvmJar]) {
     args = []
 }
 
-task stage(dependsOn: ['installDist'])
+task stage(dependsOn: ['run'])
