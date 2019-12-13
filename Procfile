@@ -1,1 +1,1 @@
-web:  java -jar build/libs/kotlin-multiplatform-blog-jvm.jar
+web:  java -jar ./build/libs/kotlin-multiplatform-blog-jvm.jar
