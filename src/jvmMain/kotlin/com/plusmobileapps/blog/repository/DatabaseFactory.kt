@@ -1,6 +1,7 @@
 package com.plusmobileapps.blog.repository
 
 import com.plusmobileapps.blog.model.Articles
+import com.plusmobileapps.blog.model.Users
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,7 @@ object DatabaseFactory {
         Database.connect(hikari())
         transaction {
             SchemaUtils.create(Articles)
+            SchemaUtils.create(Users)
         }
     }
 
@@ -23,7 +25,6 @@ object DatabaseFactory {
         val config = HikariConfig().apply {
             driverClassName = "org.postgresql.Driver"
             jdbcUrl = System.getenv("JDBC_DATABASE_URL")
-            password = System.getenv("DB_PASSWORD")
             maximumPoolSize = 3
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"

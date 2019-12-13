@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/kotlin-multiplatform-blog.iml" filepath="$PROJECT_DIR$/.idea/kotlin-multiplatform-blog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.commonMain.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.commonMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.commonTest.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.commonTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jsMain.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jsMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jsTest.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jsTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jvmMain.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jvmMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jvmTest.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jvmTest.iml" />
+    </modules>
+  </component>
+</project>
