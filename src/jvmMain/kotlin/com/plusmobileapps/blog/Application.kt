@@ -50,7 +50,8 @@ actual object Platform {
 }
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "127.0.0.1") {
+    val port = System.getenv("PORT").toIntOrNull() ?: 8080
+    embeddedServer(Netty, port = port) {
 
         install(DefaultHeaders)
 
