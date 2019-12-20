@@ -18,6 +18,7 @@ import io.ktor.auth.authentication
 import io.ktor.auth.jwt.jwt
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
+import io.ktor.features.HttpsRedirect
 import io.ktor.features.StatusPages
 import io.ktor.freemarker.FreeMarker
 import io.ktor.gson.gson
@@ -54,6 +55,8 @@ fun main() {
     embeddedServer(Netty, port = port) {
 
         install(DefaultHeaders)
+
+        install(HttpsRedirect)
 
         install(StatusPages) {
             exception<Throwable> { e ->
