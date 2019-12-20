@@ -56,8 +56,6 @@ fun main() {
 
         install(DefaultHeaders)
 
-        install(HttpsRedirect)
-
         install(StatusPages) {
             exception<Throwable> { e ->
                 call.respondText(e.localizedMessage, ContentType.Text.Plain, HttpStatusCode.InternalServerError)
