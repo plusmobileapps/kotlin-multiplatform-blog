@@ -20,6 +20,6 @@ fun helloWorld(salutation: String) {
 
 fun main() {
     document.addEventListener("DOMContentLoaded", {
-        helloWorld("Hi!")
+        helloWorld("Hi andrew!")
     })
 }                

@@ -25,6 +25,7 @@ import io.ktor.gson.gson
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.content.resource
 import io.ktor.http.content.resources
 import io.ktor.http.content.static
 import io.ktor.locations.Locations
@@ -102,6 +103,7 @@ fun main() {
 
             static("/static") {
                 resources("images")
+                resource("kotlin-multiplatform-blog.js")
             }
             home(repository)
             about(repository)

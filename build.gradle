@@ -95,3 +95,10 @@ jvmJar {
 task stage {
     dependsOn jvmJar
 }
+
+task runWebApp(type: JavaExec, dependsOn: [jvmJar]) {
+    group = "application"
+    main = "com.plusmobileapps.blog.ApplicationKt"
+    classpath(configurations.jvmRuntimeClasspath, jvmJar)
+    args = []
+}
