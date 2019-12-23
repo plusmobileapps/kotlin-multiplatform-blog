@@ -24,7 +24,7 @@ class ArticlesApi
 
 fun Route.articlesApi(db: ArticleRepository) {
 
-    authenticate("jwt") {
+//    authenticate("jwt") {
         get<ArticlesApi>() {
             call.respond(db.getArticles())
         }
@@ -50,7 +50,7 @@ fun Route.articlesApi(db: ArticleRepository) {
             } catch (e: Throwable) {
                 call.respondText("Invalid data received: $e", status = HttpStatusCode.BadRequest)
             }
-        }
+//        }
     }
 
 //    post(ARTICLES_API_ENDPOINT) {

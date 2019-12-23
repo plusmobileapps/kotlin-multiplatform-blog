@@ -21,5 +21,9 @@ fun helloWorld(salutation: String) {
 fun main() {
     document.addEventListener("DOMContentLoaded", {
         helloWorld("Hi andrew!")
+        val homePagePresenter = HomePagePresenter()
+        val homePage = HomePage(presenter = homePagePresenter)
+        homePagePresenter.attach(homePage)
+        homePagePresenter.loadArticles()
     })
 }                
