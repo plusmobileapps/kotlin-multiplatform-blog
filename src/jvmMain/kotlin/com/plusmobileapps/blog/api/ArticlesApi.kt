@@ -3,11 +3,10 @@ package com.plusmobileapps.blog.api
 import com.plusmobileapps.blog.API_VERSION
 import com.plusmobileapps.blog.api.requests.ArticlesApiRequest
 import com.plusmobileapps.blog.apiUser
-import com.plusmobileapps.blog.model.Article
+import com.plusmobileapps.blog.model.ServerArticle
 import com.plusmobileapps.blog.redirect
 import com.plusmobileapps.blog.repository.ArticleRepository
 import io.ktor.application.call
-import io.ktor.auth.authenticate
 import io.ktor.http.HttpStatusCode
 import io.ktor.locations.Location
 import io.ktor.locations.get
@@ -34,7 +33,7 @@ fun Route.articlesApi(db: ArticleRepository) {
 
             try {
                 val request = call.receive<ArticlesApiRequest>()
-                val article: Article? = db.add(
+                val article: ServerArticle? = db.add(
                     userId = user.userId,
                     authorValue = request.author,
                     dateCreatedValue = request.dateCreated,

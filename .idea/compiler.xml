@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="kotlin-multiplatform-blog.jvmMain" target="1.6" />
       <module name="kotlin-multiplatform-blog.jvmTest" target="1.6" />
+      <module name="kotlin-multiplatform-blog.main" target="1.8" />
+      <module name="kotlin-multiplatform-blog.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

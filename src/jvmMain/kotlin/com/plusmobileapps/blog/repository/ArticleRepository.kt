@@ -1,6 +1,6 @@
 package com.plusmobileapps.blog.repository
 
-import com.plusmobileapps.blog.model.Article
+import com.plusmobileapps.blog.model.ServerArticle
 import com.plusmobileapps.blog.model.User
 
 interface ArticleRepository {
@@ -11,9 +11,9 @@ interface ArticleRepository {
         titleValue: String,
         minReadValue: String,
         bodyValue: String
-    ): Article?
-    suspend fun getArticles(): List<Article>
-    suspend fun getArticle(id: Int): Article?
+    ): ServerArticle?
+    suspend fun getArticles(): List<ServerArticle>
+    suspend fun getArticle(id: Int): ServerArticle?
     suspend fun deleteArticle(id: Int)
     suspend fun deleteAllArticles()
     suspend fun user(userId: String, hash: String? = null): User?

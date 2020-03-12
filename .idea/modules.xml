@@ -9,6 +9,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jsTest.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jsTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jvmMain.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jvmMain.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jvmTest.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.jvmTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-multiplatform-blog.test.iml" />
     </modules>
   </component>
 </project>

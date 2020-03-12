@@ -1,18 +1,19 @@
 package com.plusmobileapps.blog.model
 
+import com.plusmobileapps.blog.Article
 import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.Column
 import java.io.Serializable
 
-data class Article(
-    val id: Int,
-    val userId: String,
-    val author: String,
-    val dateCreated: String,
-    val title: String,
-    val minRead: String,
-    val body: String
-) : Serializable
+data class ServerArticle(
+    override val id: Int,
+    override val userId: String,
+    override val author: String,
+    override val dateCreated: String,
+    override val title: String,
+    override val minRead: String,
+    override val body: String
+) : Article,  Serializable
 
 
 object Articles : IntIdTable() {

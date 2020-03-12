@@ -16,29 +16,58 @@ const val HOME = "/"
 class Home
 
 fun Route.home(db: ArticleRepository) {
+    val intArray = intArrayOf()
+    intArray.forEachIndexed { index, i ->
+
+    }
     get<Home> {
         //        val user = call.sessions.get<BlogSession>()?.let { db.user(it.userId) }
 //        call.respond(FreeMarkerContent("home.ftl", mapOf("user" to user)))
         call.respondHtml {
             head {
                 title("Plus Mobile Apps")
+                unsafe {
+                    +"""
+                            <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no">
+
+                          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style data-jss="" data-meta="MuiCssBaseline">
+    html {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+    body {
+      margin: 0;
+      background-color: #fafafa;
+    }
+    @media print {
+      body {
+        background-color: #fff;
+      }
+    }
+    </style>
+                    """.trimIndent()
+                }
             }
             body {
-                +"${hello()} from Ktor. Check me value: ${Sample().checkMe()}"
+//                +"${hello()} from Ktor. Check me value: ${Sample().checkMe()}"
+//                div {
+//                    id = "js-response"
+//                    +"Loading..."
+//                }
+
                 div {
-                    id = "js-response"
-                    +"Loading..."
-                }
-
-
-                div("loader") {
-                    id = "loader"
-                    svg("spinner") {
-
-                    }
+                    id = "root"
                 }
 
                 script(src = "/static/kotlin-multiplatform-blog.js") {}
+
+
             }
         }
     }

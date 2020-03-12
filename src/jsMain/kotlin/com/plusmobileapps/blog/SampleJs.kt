@@ -1,5 +1,6 @@
 package com.plusmobileapps.blog
 
+import react.dom.render
 import kotlin.browser.*
 
 actual class Sample {
@@ -19,11 +20,15 @@ fun helloWorld(salutation: String) {
 }
 
 fun main() {
-    document.addEventListener("DOMContentLoaded", {
-        helloWorld("Hi andrew!")
-        val homePagePresenter = HomePagePresenter()
-        val homePage = HomePage(presenter = homePagePresenter)
-        homePagePresenter.attach(homePage)
-        homePagePresenter.loadArticles()
-    })
-}                
+    render(document.getElementById("root")) {
+        child(App::class) {}
+    }
+//    document.addEventListener("DOMContentLoaded", {2
+//        helloWorld("Hi andrew!")
+//        val homePagePresenter = HomePagePresenter()
+//        val homePage = HomePage(presenter = homePagePresenter)
+//        homePagePresenter.attach(homePage)
+//        homePagePresenter.loadArticles()
+//    })
+}
+

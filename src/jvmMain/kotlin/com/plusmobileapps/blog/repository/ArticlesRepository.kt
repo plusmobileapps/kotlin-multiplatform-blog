@@ -1,6 +1,6 @@
 package com.plusmobileapps.blog.repository
 
-import com.plusmobileapps.blog.model.Article
+import com.plusmobileapps.blog.model.ServerArticle
 import com.plusmobileapps.blog.model.Articles
 import com.plusmobileapps.blog.model.User
 import com.plusmobileapps.blog.model.Users
@@ -17,7 +17,7 @@ class ArticlesRepository : ArticleRepository {
         titleValue: String,
         minReadValue: String,
         bodyValue: String
-    ): Article? = dbQuery {
+    ): ServerArticle? = dbQuery {
         transaction {
             val insertStatement = Articles.insert {
                 it[user] = userId
@@ -36,11 +36,11 @@ class ArticlesRepository : ArticleRepository {
         }
     }
 
-    override suspend fun getArticles(): List<Article> = dbQuery {
+    override suspend fun getArticles(): List<ServerArticle> = dbQuery {
         Articles.selectAll().map(this::toArticle)
     }
 
-    override suspend fun getArticle(id: Int): Article? = dbQuery {
+    override suspend fun getArticle(id: Int): ServerArticle? = dbQuery {
         Articles.select {
             (Articles.id eq id)
         }.mapNotNull(::toArticle)
@@ -58,8 +58,8 @@ class ArticlesRepository : ArticleRepository {
         Articles.deleteAll()
     }
 
-    private fun toArticle(row: ResultRow): Article {
-        return Article(
+    private fun toArticle(row: ResultRow): ServerArticle {
+        return ServerArticle(
             id = row[Articles.id].value,
             userId = row[Articles.user],
             author = row[Articles.author],
